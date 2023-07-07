@@ -8,8 +8,8 @@
 
 @mixin primary-button{
   width: 160px;
-  height: 35px;
   border: none;
+  padding: 0.3rem;
   border-radius: 5px;
   cursor: pointer;
   font-weight: 500;
@@ -25,4 +25,14 @@
     @include primary-button;
     background-color: $secondary-color;
     color: $delete-color;
+}
+
+@mixin input {
+  outline: none;
+  border: none;
+  background-color: $secondary-color;
+  color: $text-color;
+  padding: 0.3rem;
+  border-radius: 5px;
+  width: 160px;
 }
