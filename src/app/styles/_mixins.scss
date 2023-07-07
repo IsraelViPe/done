@@ -1,0 +1,28 @@
+@import '../styles/var.module.scss';
+
+@mixin flex-container{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+@mixin primary-button{
+  width: 160px;
+  height: 35px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  color: $secondary-color;
+  background-color: $primary-color;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@mixin delete-button {
+    @include primary-button;
+    background-color: $secondary-color;
+    color: $delete-color;
+}
