@@ -1,7 +1,12 @@
 import styles from  './home.module.scss';
 import Link from 'next/link'
+import { getHabitsList } from './services/kv_db_endpoints';
 
-export default function Home() {
+export default async function Home() {
+
+  const habitList = await getHabitsList();
+  console.log(habitList);
+
   return (
     <section className={styles.container}>
       <div>
