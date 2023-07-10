@@ -1,4 +1,9 @@
-import { kv } from "@vercel/kv";
+import { createClient } from '@vercel/kv';
+
+const kv = createClient({
+  url: process.env.KV_REST_API_URL ?? "https://major-gopher-42455.kv.vercel-storage.com",
+  token: process.env.KV_REST_API_TOKEN ?? "AaXXASQgM2ZjMmJjMGEtN2UyMy00NGJiLWE5ZmYtMTFiYmE0ZmZiMjhkYzM5OTVhMjBiZjI5NDNjYzgyNDk5OTAwOGQxMjljZmU=",
+});
 
 export interface IHabit {
     name : string;

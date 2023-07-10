@@ -3,6 +3,7 @@ import style from './submit_habit.module.scss';
 import { IHabit, createOrUpdateHabit, getHabitsList } from '../services/kv_db_endpoints';
 import { redirect } from 'next/navigation'
 
+
 export default async function SubmitHabit() {
 
     const habitList = await getHabitsList();
