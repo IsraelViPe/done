@@ -12,28 +12,35 @@ export default function Home() {
     const fetchData = async () => {
       const response = await getHabitsList();
       setHabitsList(response ?? []);
-      console.log(response);
     };
     fetchData();
   }, []);
 
-  // function deleteHabit(name: string) {}
+  function deleteHabit(name: string) {
+    console.log("função delete Habit");
+  }
 
-  // function updateHabit(name: string, dateString: string) {}
+  function updateHabit(name: string, dateString: string) {
+    console.log("função update habit");
+  }
 
   return (
     <section className={styles.container}>
-      <div>
-        {habistList.map((habit) => (
-          <WeekGrid
-            key={habit.name}
-            name={habit.name}
-            status={"boll"}
-            // deleteHabit={deleteHabit}
-            // updateHabit={updateHabit}
-          />
-        ))}
-      </div>
+      {!habistList.length ? (
+        <p>você não tem hábitos cadastrados</p>
+      ) : (
+        <div>
+          {habistList.map((habit) => (
+            <WeekGrid
+              key={habit.name}
+              name={habit.name}
+              days={habit.days}
+              deleteHabit={deleteHabit}
+              updateHabit={updateHabit}
+            />
+          ))}
+        </div>
+      )}
       <Link href="/submit_habit" className={styles.link}>
         novo hábito
       </Link>

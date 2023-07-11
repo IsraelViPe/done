@@ -1,4 +1,5 @@
 import { createClient } from '@vercel/kv';
+import { day } from '../components/WeekGrid';
 
 const kv = createClient({
   url: process.env.KV_REST_API_URL ?? "https://major-gopher-42455.kv.vercel-storage.com",
@@ -7,7 +8,7 @@ const kv = createClient({
 
 export interface IHabit {
     name : string;
-    days : string[];
+    days : day[];
 }
 
 export async function createOrUpdateHabit (data: IHabit[] ) {

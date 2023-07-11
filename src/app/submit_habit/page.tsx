@@ -26,7 +26,7 @@ export default async function SubmitHabit() {
     return (
         <section className={style.container}>
             <form action={addNewHabit}  className={style.form} method='post'>
-                <h2>novo hábito</h2>
+                <h3>novo hábito</h3>
                 <label htmlFor="">
                     <input
                     required
