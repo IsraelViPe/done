@@ -8,13 +8,15 @@ const kv = createClient({
 
 export interface IHabit {
     name : string;
-    days : day[];
+    days : day;
 }
 
 export async function createOrUpdateHabit (data: IHabit[] ) {
+
     try {
         await kv.set( 'habits', data);
     } catch (error) {
+        console.log('error AAAA');
         console.log(error);
     }
 }
@@ -27,3 +29,4 @@ export async function getHabitsList (): Promise <IHabit[] | undefined> {
         console.log(error);
     }
 }
+

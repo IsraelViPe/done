@@ -6,17 +6,20 @@ import { redirect } from 'next/navigation'
 
 export default async function SubmitHabit() {
 
-    const habitList = await getHabitsList();
+    const habitsList = await getHabitsList();
+
     
     async function addNewHabit(data:FormData) {
         'use server'
         const newHabitName = data.get("newHabit") as string;
-        const newHabit: IHabit = {name: newHabitName, days: []}
+        const newHabit: IHabit = {name: newHabitName, days: {}}
 
-        if (habitList) {
-            const updatedHabitsList = [...habitList, newHabit];
+        if (habitsList) {
+            console.log('entrei aqui')
+            const updatedHabitsList = [...habitsList, newHabit];
             await createOrUpdateHabit(updatedHabitsList);
         } else {
+            console.log('entrei no else')
             await createOrUpdateHabit([newHabit]);
         }   
         revalidatePath("/submit_habit");

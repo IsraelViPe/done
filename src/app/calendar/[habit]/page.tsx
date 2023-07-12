@@ -1,13 +1,13 @@
+"use client"
 import { getHabitsList } from "@/app/services/kv_db_endpoints";
+import CalendarTable from '../../components/CalendarTable';
 
-export default async function Calendar({ params }: { params: { habit: string } }) {
-
-    const habitList = await getHabitsList();
-    const currHabit = habitList?.find(({name}) => name === params.habit.replace('%20', ' '));
-
+export default function Calendar({ params }: { params: { habit: string } }) {
+    console.log(params.habit)
     return (
         <section>
-            <p>{currHabit?.name}</p> 
+            <p>{params.habit}</p> 
+            <CalendarTable />
         </section>
     )
 }

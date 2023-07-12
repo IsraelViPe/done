@@ -9,7 +9,7 @@ export type day = {
 
 type habitProps = {
   name: string;
-  days: day[];
+  days: day;
   deleteHabit: (name: string) => void;
   updateHabit: (name: string, dateString: string) => void;
 };
@@ -46,7 +46,7 @@ export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habit
             {week.map((day) => (
               <td key={day.date}>
                 <button
-                onClick={() => updateHabit(name, day.dayWeek)}  
+                onClick={() => updateHabit(name, day.date)}  
                 type="button">
                   <Image src={ showCorrectIcon(days, day.date) } width={8} height={8} alt="" />
                 </button>
@@ -57,4 +57,4 @@ export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habit
       </table>
     </div>
   );
-}
+} 
