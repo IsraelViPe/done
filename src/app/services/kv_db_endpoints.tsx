@@ -14,9 +14,9 @@ export interface IHabit {
 export async function createOrUpdateHabit (data: IHabit[] ) {
 
     try {
-        await kv.set( 'habits', data);
+       const response = await kv.set( 'habits', JSON.stringify(data));
+       return response;
     } catch (error) {
-        console.log('error AAAA');
         console.log(error);
     }
 }

@@ -1,6 +1,7 @@
 import './globals.scss'
 import { Dosis } from 'next/font/google'
 import Image from 'next/image'
+import { GlobalContextProvider } from './context/store'
 
 const inter = Dosis({ subsets: ['latin'] })
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <GlobalContextProvider>
           <header>
               <Image
               src={"/logo.png"}
@@ -26,6 +28,7 @@ export default function RootLayout({
             <span>done</span>
           </header>
         {children}
+        </GlobalContextProvider>
         </body>
     </html>
   )

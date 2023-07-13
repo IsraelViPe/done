@@ -1,60 +1,51 @@
 "use client";
 import styles from "./home.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
-import { createOrUpdateHabit, getHabitsList, IHabit } from "./services/kv_db_endpoints";
+import { createOrUpdateHabit } from "./services/kv_db_endpoints";
 import WeekGrid from "./components/WeekGrid";
+import { useGlobalContext } from "./context/store";
 
 export default function Home() {
-  const [habitsList, setHabitsList] = useState<IHabit[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getHabitsList();
-      if (response) {
-        setHabitsList(response);
-      }
-    };
-    fetchData();
-  }, []);
+  
+  const { habitList, setHabitList } = useGlobalContext();
 
   function deleteHabit(nameHabit: string) {
-    const updatedHabitList = habitsList.filter(({name}) => name !== nameHabit  );
-    setHabitsList(updatedHabitList);
+    const updatedHabitList = habitList.filter(({name}) => name !== nameHabit  );
+    setHabitList(updatedHabitList);
   }
 
   useEffect(() => {
     const updateData = async () => {
-      await createOrUpdateHabit(habitsList);
-
+      await createOrUpdateHabit(habitList);
     }
     updateData();
-  }, [habitsList]);
+  }, [habitList]);
 
   function updateHabit(nameHabit: string, dateString: string) {
-    const habitIndex = habitsList.findIndex(({name}) => name === nameHabit);
-    const updatedHabitsList = [...habitsList];
+    const habitIndex = habitList.findIndex(({name}) => name === nameHabit);
+    const updatedHabitsList = [...habitList];
 
     if (habitIndex !== -1) {
       let updatedHabit = updatedHabitsList[habitIndex];
 
       if (!Object.keys(updatedHabit.days).includes(dateString)) {
         updatedHabit.days[dateString] = true;
-        setHabitsList(updatedHabitsList)
+        setHabitList (updatedHabitsList)
       } else {
         updatedHabit.days[dateString] = !updatedHabit.days[dateString];
-        setHabitsList(updatedHabitsList)
+        setHabitList (updatedHabitsList)
       } 
     }
   }
 
   return (
     <section className={styles.container}>
-      {!habitsList.length ? (
+      {!habitList.length ? (
         <p>você não tem hábitos cadastrados</p>
       ) : (
         <div>
-          {habitsList.map((habit) => (
+          {habitList.map((habit) => (
             <WeekGrid
               key={habit.name}
               name={habit.name}

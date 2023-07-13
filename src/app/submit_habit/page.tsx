@@ -14,16 +14,23 @@ export default async function SubmitHabit() {
         const newHabitName = data.get("newHabit") as string;
         const newHabit: IHabit = {name: newHabitName, days: {}}
 
-        if (habitsList) {
-            console.log('entrei aqui')
+        const encoder = new TextEncoder();
+        const encodedString = encoder.encode(newHabitName);
+        console.log(encodedString.byteLength);
+
+        if (habitsList?.length) {
             const updatedHabitsList = [...habitsList, newHabit];
-            await createOrUpdateHabit(updatedHabitsList);
+
+            const response = await createOrUpdateHabit(updatedHabitsList);
+            console.log(response);
+            if (response) {
+                redirect("/")
+            }   
         } else {
-            console.log('entrei no else')
             await createOrUpdateHabit([newHabit]);
-        }   
+        } 
         revalidatePath("/submit_habit");
-        redirect("/");
+        // redirect("/");
     }
     
     return (
