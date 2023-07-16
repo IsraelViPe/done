@@ -1,20 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import findSevenLastDays from "../utils/findSevenLastDays";
 import showCorrectIcon from "../utils/showCorrectIcon";
 import Link from "next/link";
-
-export type day = {
-  [key: string]: boolean
-}
+import { day } from "../services/kv_db_endpoints";
+import { deleteHabit, updateHabit } from "../actions/actions";
 
 type habitProps = {
   name: string;
   days: day;
-  deleteHabit: (name: string) => void;
-  updateHabit: (name: string, dateString: string) => void;
 };
 
-export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habitProps) {
+export default function WeekGrid({ name, days }: habitProps) {
+    
   const currDay = new Date();
   const week = findSevenLastDays(currDay);
 
@@ -22,9 +21,7 @@ export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habit
     <div>
       <div>
         <Link href={`/calendar/${name}`}>{name}</Link>
-        <button
-        onClick={() => deleteHabit(name)} 
-        type="button">
+        <button onClick={() => deleteHabit(name)} type="button">
           <Image
             src={"/trash.svg"}
             width={20}
@@ -37,18 +34,24 @@ export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habit
         <thead>
           <tr>
             {week.map((day) => (
-              <th key={day.date + "th"}>{day.dayWeek}</th>
+              <th key={name + day.date}>{day.dayWeek}</th>
             ))}
           </tr>
         </thead>
         <tbody>
           <tr>
             {week.map((day) => (
-              <td key={day.date}>
+              <td key={name + day.date}>
                 <button
-                onClick={() => updateHabit(name, day.date)}  
-                type="button">
-                  <Image src={ showCorrectIcon(days, day.date) } width={8} height={8} alt="" />
+                  onClick={() => updateHabit(name, day.date)}
+                  type="button"
+                >
+                  <Image
+                    src={showCorrectIcon(days, day.date)}
+                    width={8}
+                    height={8}
+                    alt=""
+                  />
                 </button>
               </td>
             ))}
@@ -57,4 +60,4 @@ export default function WeekGrid({ name, days, deleteHabit, updateHabit }: habit
       </table>
     </div>
   );
-} 
+}
