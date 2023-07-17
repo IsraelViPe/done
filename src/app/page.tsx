@@ -12,8 +12,8 @@ export default async function Home() {
       {!habitList?.length ? (
         <p>você não tem hábitos cadastrados</p>
       ) : (
-        <div>
-          {habitList?.map((habit, i) => (
+        <div className={styles.habits_list}>
+          {habitList?.map((habit) => (
             <WeekGrid key={habit.name} name={habit.name} days={habit.days} />
           ))}
         </div>

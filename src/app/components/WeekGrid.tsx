@@ -6,6 +6,7 @@ import showCorrectIcon from "../utils/showCorrectIcon";
 import Link from "next/link";
 import { day } from "../services/kv_db_endpoints";
 import { deleteHabit, updateHabit } from "../actions/actions";
+import styles from "./weekgrid.module.scss";
 
 type habitProps = {
   name: string;
@@ -13,14 +14,13 @@ type habitProps = {
 };
 
 export default function WeekGrid({ name, days }: habitProps) {
-    
   const currDay = new Date();
   const week = findSevenLastDays(currDay);
 
   return (
-    <div>
-      <div>
-        <Link href={`/calendar/${name}`}>{name}</Link>
+    <div className={styles.card_container}>
+      <div className={styles.card_header}>
+        <Link href={`/calendar/habit/?habitName=${name}`}>{name}</Link>
         <button onClick={() => deleteHabit(name)} type="button">
           <Image
             src={"/trash.svg"}
@@ -30,34 +30,27 @@ export default function WeekGrid({ name, days }: habitProps) {
           />
         </button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            {week.map((day) => (
-              <th key={name + day.date}>{day.dayWeek}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            {week.map((day) => (
-              <td key={name + day.date}>
-                <button
-                  onClick={() => updateHabit(name, day.date)}
-                  type="button"
-                >
-                  <Image
-                    src={showCorrectIcon(days, day.date)}
-                    width={8}
-                    height={8}
-                    alt=""
-                  />
-                </button>
-              </td>
-            ))}
-          </tr>
-        </tbody>
-      </table>
+      <div className={styles.card_body}>
+        {week.map((day) => {
+          const urlIcon = showCorrectIcon(days, day.date)
+          return (
+            <div key={name + day.date}>
+              <span>{day.dayWeek}</span>
+              <button
+              onClick={() => updateHabit(name, day.date)}
+              type="button"
+            >
+              <Image
+                src={urlIcon}
+                width={urlIcon === "/ball.svg"? 8: 15}
+                height={urlIcon === "/ball.svg"? 8: 15}
+                alt="status ícone"
+              />
+            </button>
+            </div>
+          )
+        } )}
+      </div>
     </div>
   );
 }

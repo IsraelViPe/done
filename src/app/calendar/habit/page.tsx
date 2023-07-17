@@ -1,0 +1,19 @@
+import { day, getHabitsList } from '@/app/services/kv_db_endpoints';
+import CalendarTable from '../../components/CalendarTable';
+import styles from './calendar.module.scss'
+import Link from 'next/link';
+
+export default  async function Calendar({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined}}) {
+
+    const habitList = await getHabitsList();
+    const habitName = searchParams?.habitName as string;
+    const days = habitList?.find(({name}) => name.trim() === habitName.trim())?.days
+   
+    return (
+        <section className={styles.container}>
+            <p>{searchParams?.habitName}</p>
+            <Link href="/">Voltar</Link>
+            <CalendarTable name={searchParams?.habitName as string}  days={days as day} />
+        </section>
+    )
+}

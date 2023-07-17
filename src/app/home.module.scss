@@ -3,8 +3,9 @@
 
 .container {
     @include flex-container();
+    background-color: $bg-color;
     flex-direction: column;
-    justify-content: space-around;
+    gap: 2rem;
     align-items: center;
 }
 
@@ -14,4 +15,12 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    margin-top: 1rem;
+}
+
+.habits_list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-top: 1rem;
 }

@@ -1,6 +1,9 @@
-import { day } from "../components/WeekGrid";
+import { day } from "../services/kv_db_endpoints";
+
 
 export default function findCorrectIconUrl(days: day, dayWeek: string) {
+
+    console.log(days, 'aqui')
 
     const iconsUrls = {ball : "/ball.svg", checked: "/checked.svg", x: "/x.svg" };
     const isNonExistentDate = !(dayWeek in days)
