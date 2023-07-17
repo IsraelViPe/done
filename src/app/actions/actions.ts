@@ -9,6 +9,7 @@ export async function deleteHabit (name: string) {
   };
   
 export async function updateHabit (name: string, date: string)  {
+  console.log(name, date)
     await updateHabitByName(name, date);
     revalidatePath("/submit_habit")
   };

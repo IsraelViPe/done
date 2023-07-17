@@ -42,8 +42,8 @@ export default function WeekGrid({ name, days }: habitProps) {
             >
               <Image
                 src={urlIcon}
-                width={urlIcon === "/ball.svg"? 8: 15}
-                height={urlIcon === "/ball.svg"? 8: 15}
+                width={15}
+                height={15}
                 alt="status ícone"
               />
             </button>

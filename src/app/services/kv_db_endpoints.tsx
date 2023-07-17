@@ -56,8 +56,7 @@ export async function deleteHabitByName(habitName: string) {
 export async function updateHabitByName(habitName: string, date: string) {
   try {
     const habitsList = await getHabitsList();
-    const indexHabit = habitsList?.findIndex(({ name }) => name === habitName);
-
+    const indexHabit = habitsList?.findIndex(({ name }) => name.trim() === habitName.trim());
     
     if ((indexHabit !== undefined) && (indexHabit !== -1) && (habitsList !== undefined)) {
       const habit = habitsList[indexHabit];

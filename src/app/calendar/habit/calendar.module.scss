@@ -4,7 +4,27 @@
 .container {
     @include flex-container();
     background-color: $bg-color;
+    width: 80%;
+    margin: 0 auto;
     flex-direction: column;
     gap: 2rem;
     align-items: center;
+
+}
+
+.link_back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    gap: 0.2rem;
+
+    a {
+        text-decoration: none;
+        text-transform: lowercase;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
 }
