@@ -17,6 +17,8 @@ export default function WeekGrid({ name, days }: habitProps) {
   const currDay = new Date();
   const week = findSevenLastDays(currDay);
 
+  console.log(week);
+
   return (
     <div className={styles.card_container}>
       <div className={styles.card_header}>
@@ -31,11 +33,11 @@ export default function WeekGrid({ name, days }: habitProps) {
         </button>
       </div>
       <div className={styles.card_body}>
-        {week.map((day) => {
+        {week.map((day, i) => {
           const urlIcon = showCorrectIcon(days, day.date)
           return (
             <div key={name + day.date}>
-              <span>{day.dayWeek}</span>
+              <span className={i === 6 ? styles.curr_days: styles.days_week} >{day.dayWeek}</span>
               <button
               onClick={() => updateHabit(name, day.date)}
               type="button"

@@ -48,10 +48,6 @@
         align-items: center;
         gap: 0.8rem;
 
-        span {
-            text-transform: capitalize;
-        }
-
         button {
             border: none;
             background-color: $secondary-color;
@@ -62,4 +58,14 @@
             }
         }
     }
+}
+
+.days_week {
+    text-transform: capitalize;
+    opacity: 0.7;
+}
+
+.curr_days {
+    @extend .days_week;
+    opacity: 1;
 }

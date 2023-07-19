@@ -14,10 +14,13 @@ export default async function Home() {
           <span style={{ color: "#45EDAD" }}>hábitos</span> cadastrados
         </p>
       ) : (
-        <div className={styles.habits_list}>
-          {habitList?.map((habit) => (
-            <WeekGrid key={habit.name} name={habit.name} days={habit.days} />
-          ))}
+        <div className={styles.habits_list_cont}>
+          <span>últimos 7 dias</span>
+          <div className={styles.habits_list}>
+            {habitList?.map((habit) => (
+              <WeekGrid key={habit.name} name={habit.name} days={habit.days} />
+            ))}
+          </div>
         </div>
       )}
       <Link className={styles.link_button} href="/submit_habit">

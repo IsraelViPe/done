@@ -7,7 +7,7 @@ export default function findSevenLastDays(today: Date) {
 
   while (currDay <= today) {
     result.push({
-      dayWeek: currDay.toLocaleDateString("pt-BR", { weekday: "short" }),
+      dayWeek: currDay.toLocaleDateString("pt-BR", { weekday: "short" }).slice(0,-1),
       date: currDay.toLocaleDateString(),
     });
 
