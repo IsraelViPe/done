@@ -34,4 +34,9 @@
 .delete_button {
     @include delete-button();
     margin: 0.3rem;
+
+    a {
+        text-decoration: none;
+        color: $delete-color;
+    }
 }

@@ -44,8 +44,6 @@ export default function CalendarTable({ name, days }: habitProps) {
         : Array(firstDayMonth.getDay()).fill("blank");
   
     const allDays: string[] = [...blankDays];
-    console.log(allDays);
-    console.log('aqui');
   
     while (firstDayMonth.getMonth() === currMonth) {
       allDays.push(firstDayMonth.toLocaleDateString());
@@ -97,7 +95,7 @@ export default function CalendarTable({ name, days }: habitProps) {
           day === "blank" ? (
             <div className={styles.card_day} key={uuidv4()}></div>
           ) : (
-            <div className={styles.card_day} key={uuidv4()}>
+            <div className={ day === currDay.toLocaleDateString()? styles.curr_day: styles.card_day} key={uuidv4()}>
               <span>{parseInt(day.substring(0, 2), 10)}</span>
               <button
                 onClick={() => updateHabit(name, day)}

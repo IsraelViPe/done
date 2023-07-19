@@ -10,13 +10,13 @@
 
 }
 
-.link {
-    @include primary-button;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    margin-top: 1rem;
+.primary_button {
+    @include primary-button();
+
+    a{
+        text-decoration: none;
+        color: $secondary-color;
+    }
 }
 
 .habits_list {

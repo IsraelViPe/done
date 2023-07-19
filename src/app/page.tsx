@@ -19,7 +19,9 @@ export default async function Home() {
         </div>
       )}
       <Link href="/submit_habit" className={styles.link}>
+      <button className={styles.primary_button}>
         novo hábito
+      </button>
       </Link>
     </section>
   );
