@@ -10,7 +10,7 @@ export default async function Home() {
   return (
     <section className={styles.container}>
       {!habitList?.length ? (
-        <p>você não tem hábitos cadastrados</p>
+        <p className={styles.no_habit}>você não tem hábitos cadastrados</p>
       ) : (
         <div className={styles.habits_list}>
           {habitList?.map((habit) => (

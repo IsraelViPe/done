@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import showCorrectIcon from "../utils/showCorrectIcon";
 import { day } from "../services/kv_db_endpoints";
 import { updateHabit } from "../actions/actions";
 import styles from "./calendartable.module.scss";
+import { v4 as uuidv4 } from 'uuid';
 
 type habitProps = {
   name: string;
@@ -12,11 +13,11 @@ type habitProps = {
 };
 
 export default function CalendarTable({ name, days }: habitProps) {
-  console.log(name);
 
   const [currDay, _setCurrDay] = useState(new Date());
   const [currMonth, setCurrMonth] = useState(currDay.getMonth());
   const [currYear, setCurrYear] = useState(currDay.getFullYear());
+  const [daysInCurrMonth, setDaysInCurrMonth ] = useState<string[]>([]);
 
   const months = {
     0: "janeiro",
@@ -33,21 +34,26 @@ export default function CalendarTable({ name, days }: habitProps) {
     11: "dezembro",
   };
 
-  console.log(currDay.toLocaleDateString())
   const daysWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
-  let firstDayMonth = new Date(currYear, currMonth, 1);
-  const blankDays =
-    firstDayMonth.getDay() === 0
-      ? []
-      : Array(firstDayMonth.getDay()).fill("blank");
+  useEffect(() => {
+    let firstDayMonth = new Date(currYear, currMonth, 1);
+    const blankDays =
+      firstDayMonth.getDay() === 0
+        ? []
+        : Array(firstDayMonth.getDay()).fill("blank");
+  
+    const allDays: string[] = [...blankDays];
+    console.log(allDays);
+    console.log('aqui');
+  
+    while (firstDayMonth.getMonth() === currMonth) {
+      allDays.push(firstDayMonth.toLocaleDateString());
+      firstDayMonth.setDate(firstDayMonth.getDate() + 1);
+    }
+    setDaysInCurrMonth(allDays);
+  }, [currYear, currMonth])
 
-  const daysInCurrMonth = [...blankDays];
-
-  while (firstDayMonth.getMonth() === currMonth) {
-    daysInCurrMonth.push(firstDayMonth.toLocaleDateString());
-    firstDayMonth.setDate(firstDayMonth.getDate() + 1);
-  }
 
   const nextPreviousMonth = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.currentTarget.id === "left") {
@@ -66,8 +72,6 @@ export default function CalendarTable({ name, days }: habitProps) {
       }
     }
   };
-
-  console.log(daysInCurrMonth);
 
   return (
     <div className={styles.container}>
@@ -91,9 +95,9 @@ export default function CalendarTable({ name, days }: habitProps) {
         ))}
         {daysInCurrMonth.map((day) =>
           day === "blank" ? (
-            <div className={styles.card_day} key={day}></div>
+            <div className={styles.card_day} key={uuidv4()}></div>
           ) : (
-            <div className={styles.card_day} key={day}>
+            <div className={styles.card_day} key={uuidv4()}>
               <span>{parseInt(day.substring(0, 2), 10)}</span>
               <button
                 onClick={() => updateHabit(name, day)}
