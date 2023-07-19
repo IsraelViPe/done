@@ -21,7 +21,7 @@ export default async function Home() {
         </div>
       )}
       <Link className={styles.link_button} href="/submit_habit">
-        <button className={styles.primary_button}>novo hábito</button>
+        <button>novo hábito</button>
       </Link>
     </section>
   );
