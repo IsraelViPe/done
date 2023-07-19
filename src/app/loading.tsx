@@ -4,7 +4,7 @@ import styles from './loading.module.scss';
 export default function Loading() {
     return (
         <div className={styles.container}>
-            <div style={{display: "flex"}}>
+            <div>
                 <div className={styles.container_motion}>
                     < Image className={styles.x1} width={30} height={30} src={"/x.svg"} alt="ícone check"/>
                     < Image className={styles.check1} width={30} height={30} src={"/checked.svg"} alt="ícone check"/>

@@ -11,11 +11,9 @@ export interface IHabit {
 
 const kv = createClient({
   url:
-    process.env.KV_REST_API_URL ??
-    "https://major-gopher-42455.kv.vercel-storage.com",
+    process.env.KV_REST_API_URL as string,
   token:
-    process.env.KV_REST_API_TOKEN ??
-    "AaXXASQgM2ZjMmJjMGEtN2UyMy00NGJiLWE5ZmYtMTFiYmE0ZmZiMjhkYzM5OTVhMjBiZjI5NDNjYzgyNDk5OTAwOGQxMjljZmU=",
+    process.env.KV_REST_API_TOKEN as string,
 });
 
 export async function createHabit(habitName: string) {
@@ -35,6 +33,7 @@ export async function createHabit(habitName: string) {
 
 
 export async function getHabitsList (): Promise <IHabit[] | undefined> {
+  
   try {
     const habitsList =  await kv.get('habits');
     return habitsList as IHabit[];
@@ -54,6 +53,7 @@ export async function deleteHabitByName(habitName: string) {
 }
 
 export async function updateHabitByName(habitName: string, date: string) {
+ 
   try {
     const habitsList = await getHabitsList();
     const indexHabit = habitsList?.findIndex(({ name }) => name.trim() === habitName.trim());
