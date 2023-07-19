@@ -28,8 +28,8 @@ export default async function SubmitHabit() {
         <button className={style.primary_button} formAction={addNewHabit}>
           cadastrar
         </button>
-        <Link href="/">
-          <button className={style.delete_button} type="button">
+        <Link className={style.link_button} href="/">
+          <button type="button">
             cancelar
           </button>
         </Link>

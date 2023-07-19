@@ -3,14 +3,16 @@ import { getHabitsList } from "./services/kv_db_endpoints";
 import Link from "next/link";
 import WeekGrid from "./components/WeekGrid";
 
-
 export default async function Home() {
   const habitList = await getHabitsList();
 
   return (
     <section className={styles.container}>
       {!habitList?.length ? (
-        <p className={styles.no_habit}>você não tem hábitos cadastrados</p>
+        <p className={styles.no_habit}>
+          você ainda não tem <br />{" "}
+          <span style={{ color: "#45EDAD" }}>hábitos</span> cadastrados
+        </p>
       ) : (
         <div className={styles.habits_list}>
           {habitList?.map((habit) => (
@@ -18,10 +20,8 @@ export default async function Home() {
           ))}
         </div>
       )}
-      <Link href="/submit_habit" className={styles.link}>
-      <button className={styles.primary_button}>
-        novo hábito
-      </button>
+      <Link className={styles.link_button} href="/submit_habit">
+        <button className={styles.primary_button}>novo hábito</button>
       </Link>
     </section>
   );
