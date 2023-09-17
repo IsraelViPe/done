@@ -17,7 +17,40 @@ export default function WeekGrid({ name, days }: habitProps) {
   const currDay = new Date();
   const week = findSevenLastDays(currDay);
 
-  console.log(week);
+  const findStreak = (days: day) => {
+    let countMaxStreak = 0;
+    let auxCount = 0
+    let firstDayStreak = '';
+    let lastDayStreak = '';
+
+    for (let [key, value] of Object.entries(days)) {
+      if(value) {
+        if (auxCount === 0) {
+          firstDayStreak = key
+        }
+        auxCount += 1
+        lastDayStreak = key
+      } else {
+        if(auxCount > countMaxStreak) {
+          countMaxStreak = auxCount
+          lastDayStreak = key
+        }
+        auxCount = 0
+      }
+    }
+
+    if (auxCount > countMaxStreak) {
+      countMaxStreak = auxCount;
+    }
+
+    return {
+      countMaxStreak,
+      firstDayStreak,
+      lastDayStreak
+    }
+  }
+  console.log(days);
+  console.log(findStreak(days));
 
   return (
     <div className={styles.card_container}>

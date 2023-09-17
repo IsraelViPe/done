@@ -1,10 +1,11 @@
 import './globals.scss'
 import { Dosis } from 'next/font/google'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 
-const inter = Dosis({ subsets: ['latin'] })
+const dosis = Dosis({ subsets: ['latin'] })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'done',
   description: 'Um app para gerenciamento de hábitos.',
 }
@@ -16,8 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-       
+      <body className={dosis.className}>
           <header>
               <Image
               src={"/logo.png"}

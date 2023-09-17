@@ -1,4 +1,4 @@
-import { createClient } from "@vercel/kv";
+import { kv } from "@vercel/kv";
 
 export type day = {
   [key: string]: boolean;
@@ -9,26 +9,21 @@ export interface IHabit {
   days: day;
 }
 
-const kv = createClient({
-  url:
-    process.env.KV_REST_API_URL as string,
-  token:
-    process.env.KV_REST_API_TOKEN as string,
-});
-
 export async function createHabit(habitName: string) {
-  try {
-    const habistList: IHabit[] | null = await kv.get("habits");
-    const alreadyExists = habistList?.some(({ name }) => name === habitName);
+  // try {
+  //   const habistList: IHabit[] | null = await kv.get("habits");
+  //   const alreadyExists = habistList?.some(({ name }) => name === habitName);
 
-    if (!alreadyExists) {
-      const newHabit = { name: habitName, days: {} }
-      habistList?.push(newHabit);
-      await kv.set("habits", habistList);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  //   if (!alreadyExists) {
+  //     const newHabit = { name: habitName, days: {} }
+  //     habistList?.push(newHabit);
+  //     await kv.set("habits", habistList);
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  console.log(habitName)
+  await kv.hset("habits", { [habitName]: {}});
 }
 
 
