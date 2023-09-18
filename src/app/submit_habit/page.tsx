@@ -2,7 +2,6 @@ import { revalidatePath } from "next/cache";
 import style from "./submit_habit.module.scss";
 import { createHabit } from "../services/kv_db_endpoints";
 import { redirect } from "next/navigation";
-import { RedirectType } from "next/dist/client/components/redirect";
 import Link from "next/link";
 
 export default async function SubmitHabit() {
@@ -14,18 +13,18 @@ export default async function SubmitHabit() {
     } catch (error) {
       console.log("Ops algo deu errado" + error);
     }
-    revalidatePath("/submit_habit");
-    redirect("/", RedirectType.push);
+    revalidatePath("/");
+    redirect("/");
   }
 
   return (
     <section className={style.container}>
-      <form className={style.form}>
+      <form action={addNewHabit} className={style.form}>
         <h3>novo hábito</h3>
         <label htmlFor="newHabit">
           <input id="newHabit" required name="newHabit" type="text" />
         </label>
-        <button className={style.primary_button} formAction={addNewHabit}>
+        <button type="submit" className={style.primary_button} >
           cadastrar
         </button>
         <Link className={style.link_button} href="/">

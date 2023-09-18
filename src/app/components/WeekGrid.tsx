@@ -1,12 +1,10 @@
-"use client";
-
-import Image from "next/image";
 import findSevenLastDays from "../utils/findSevenLastDays";
 import showCorrectIcon from "../utils/showCorrectIcon";
 import Link from "next/link";
 import { day } from "../services/kv_db_endpoints";
-import { deleteHabit, updateHabit } from "../actions/actions";
 import styles from "./weekgrid.module.scss";
+import DeleteButton from "./DeleteButton";
+import ToggleButton from "./ToggleButton";
 
 type habitProps = {
   name: string;
@@ -56,14 +54,7 @@ export default function WeekGrid({ name, days }: habitProps) {
     <div className={styles.card_container}>
       <div className={styles.card_header}>
         <Link href={`/calendar/habit/?habitName=${name}`}>{name}</Link>
-        <button onClick={() => deleteHabit(name)} type="button">
-          <Image
-            src={"/trash.svg"}
-            width={20}
-            height={20}
-            alt="ícone lixeira"
-          />
-        </button>
+        <DeleteButton name={name} />
       </div>
       <div className={styles.card_body}>
         {week.map((day, i) => {
@@ -71,7 +62,8 @@ export default function WeekGrid({ name, days }: habitProps) {
           return (
             <div key={name + day.date}>
               <span className={i === 6 ? styles.curr_days: styles.days_week} >{day.dayWeek}</span>
-              <button
+              <ToggleButton name={name} date={day.date} dayslist={days} urlIcon={urlIcon} />
+              {/* <button
               onClick={() => updateHabit(name, day.date)}
               type="button"
             >
@@ -81,7 +73,7 @@ export default function WeekGrid({ name, days }: habitProps) {
                 height={15}
                 alt="status ícone"
               />
-            </button>
+            </button> */}
             </div>
           )
         } )}

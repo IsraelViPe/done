@@ -8,7 +8,7 @@ export default  async function Calendar({ searchParams }: { searchParams?: { [ke
 
     const habitList = await getHabitsList();
     const habitName = searchParams?.habitName as string;
-    const days = habitList?.find(({name}) => name.trim() === habitName.trim())?.days
+    const [_, days] = habitList?.find((habit) => habit[0].trim() === habitName.trim()) 
    
     return (
         <section className={styles.container}>

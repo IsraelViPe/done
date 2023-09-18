@@ -4,34 +4,26 @@ export type day = {
   [key: string]: boolean;
 };
 
+type allHabits = {
+  [key: string]: day | {};
+}
+
 export interface IHabit {
-  name: string;
-  days: day;
+  0: string;
+  1: day;
 }
 
 export async function createHabit(habitName: string) {
-  // try {
-  //   const habistList: IHabit[] | null = await kv.get("habits");
-  //   const alreadyExists = habistList?.some(({ name }) => name === habitName);
-
-  //   if (!alreadyExists) {
-  //     const newHabit = { name: habitName, days: {} }
-  //     habistList?.push(newHabit);
-  //     await kv.set("habits", habistList);
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
   console.log(habitName)
   await kv.hset("habits", { [habitName]: {}});
 }
 
 
-export async function getHabitsList (): Promise <IHabit[] | undefined> {
+export async function getHabitsList (): Promise < IHabit[] | undefined> {
   
   try {
-    const habitsList =  await kv.get('habits');
-    return habitsList as IHabit[];
+    const habitsList =  await kv.hgetall('habits') as allHabits;
+    return Object.entries(habitsList)
   } catch (error) {
     console.log(error);
   }
@@ -39,31 +31,25 @@ export async function getHabitsList (): Promise <IHabit[] | undefined> {
 
 export async function deleteHabitByName(habitName: string) {
   try {
-   const habitsList = await getHabitsList();
-   const updatedList = habitsList?.filter(({name}) => name !== habitName)
-   await kv.set('habits', updatedList);
+   await kv.hdel('habits', habitName);
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function updateHabitByName(habitName: string, date: string) {
+export async function updateHabitByName(habitName: string, date: string, daysList: day) {
+
+  const isUndefinedDate = !(date in daysList);
+
+  const updatedHabitList = {
+    [habitName] : {
+      ...daysList, [date]: isUndefinedDate? true: !daysList[date]
+    }
+  }
  
   try {
-    const habitsList = await getHabitsList();
-    const indexHabit = habitsList?.findIndex(({ name }) => name.trim() === habitName.trim());
+    await kv.hset("habits", updatedHabitList )
     
-    if ((indexHabit !== undefined) && (indexHabit !== -1) && (habitsList !== undefined)) {
-      const habit = habitsList[indexHabit];
-
-      if (habit !== undefined && Object.keys(habit.days).includes(date)) {
-        habit.days[date] = !(habit.days[date]);
-        await kv.set('habits', habitsList);
-      } else if (habit !== undefined) {
-        habit.days[date as keyof typeof habit.days] = true;
-        await kv.set('habits', habitsList);
-      }
-    }
   } catch (error) {
     console.log(error);
   }

@@ -98,7 +98,7 @@ export default function CalendarTable({ name, days }: habitProps) {
             <div className={ day === currDay.toLocaleDateString()? styles.curr_day: styles.card_day} key={uuidv4()}>
               <span>{parseInt(day.substring(0, 2), 10)}</span>
               <button
-                onClick={() => updateHabit(name, day)}
+                onClick={() => updateHabit(name, day, days)}
                 type="button"
               >
                 <Image
