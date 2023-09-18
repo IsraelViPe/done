@@ -63,17 +63,6 @@ export default function WeekGrid({ name, days }: habitProps) {
             <div key={name + day.date}>
               <span className={i === 6 ? styles.curr_days: styles.days_week} >{day.dayWeek}</span>
               <ToggleButton name={name} date={day.date} dayslist={days} urlIcon={urlIcon} />
-              {/* <button
-              onClick={() => updateHabit(name, day.date)}
-              type="button"
-            >
-              <Image
-                src={urlIcon}
-                width={15}
-                height={15}
-                alt="status ícone"
-              />
-            </button> */}
             </div>
           )
         } )}

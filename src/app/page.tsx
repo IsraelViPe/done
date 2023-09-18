@@ -4,11 +4,11 @@ import Link from "next/link";
 import WeekGrid from "./components/WeekGrid";
 
 export default async function Home() {
-  const habitList: IHabit[] | undefined = await getHabitsList();
+  const habitList = await getHabitsList() ?? {};
 
   return (
     <section className={styles.container}>
-      {!habitList?.length ? (
+      {!(Object.entries(habitList).length) ? (
         <p className={styles.no_habit}>
           você ainda não tem <br />{" "}
           <span style={{ color: "#45EDAD" }}>hábitos</span> cadastrados
@@ -17,7 +17,7 @@ export default async function Home() {
         <div className={styles.habits_list_cont}>
           <span>últimos 7 dias</span>
           <div className={styles.habits_list}>
-            {habitList?.map(([habit, days]) => (
+            {Object.entries(habitList).map(([habit, days]) => (
               <WeekGrid key={habit} name={habit} days={days} />
             ))}
           </div>

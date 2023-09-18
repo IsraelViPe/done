@@ -4,11 +4,12 @@ export type day = {
   [key: string]: boolean;
 };
 
-type allHabits = {
-  [key: string]: day | {};
-}
+export type Habits = {
+  [key: string]: Record<string, boolean>
+} | null
 
 export interface IHabit {
+  length:number;
   0: string;
   1: day;
 }
@@ -19,11 +20,11 @@ export async function createHabit(habitName: string) {
 }
 
 
-export async function getHabitsList (): Promise < IHabit[] | undefined> {
+export async function getHabitsList (): Promise < Habits | undefined> {
   
   try {
-    const habitsList =  await kv.hgetall('habits') as allHabits;
-    return Object.entries(habitsList)
+    const habitsList =  await kv.hgetall('habits');
+    return habitsList as Habits
   } catch (error) {
     console.log(error);
   }
