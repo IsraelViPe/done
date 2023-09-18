@@ -11,7 +11,7 @@ export default async function SubmitHabit() {
     try {
       await createHabit(newHabitName);
     } catch (error) {
-      console.log("Ops algo deu errado" + error);
+      console.error("Ops algo deu errado" + error);
     }
     revalidatePath("/");
     redirect("/");

@@ -10,5 +10,5 @@ export async function deleteHabit (name: string) {
   
 export async function updateHabit (name: string, date: string, dayList: day)  {
     await updateHabitByName(name, date, dayList);
-    revalidatePath("/submit_habit")
+    revalidatePath("/")
   };

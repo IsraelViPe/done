@@ -1,10 +1,12 @@
 import styles from "./home.module.scss";
-import { IHabit, getHabitsList } from './services/kv_db_endpoints';
+import { getHabitsList } from './services/kv_db_endpoints';
 import Link from "next/link";
 import WeekGrid from "./components/WeekGrid";
 
 export default async function Home() {
   const habitList = await getHabitsList() ?? {};
+
+  const sortedHabitkeys = Object.entries(habitList).sort();
 
   return (
     <section className={styles.container}>
@@ -17,7 +19,7 @@ export default async function Home() {
         <div className={styles.habits_list_cont}>
           <span>últimos 7 dias</span>
           <div className={styles.habits_list}>
-            {Object.entries(habitList).map(([habit, days]) => (
+            {sortedHabitkeys.map(([habit, days]) => (
               <WeekGrid key={habit} name={habit} days={days} />
             ))}
           </div>

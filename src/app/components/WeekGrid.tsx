@@ -47,8 +47,8 @@ export default function WeekGrid({ name, days }: habitProps) {
       lastDayStreak
     }
   }
-  console.log(days);
-  console.log(findStreak(days));
+  // console.log(days);
+  // console.log(findStreak(days));
 
   return (
     <div className={styles.card_container}>

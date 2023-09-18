@@ -15,7 +15,6 @@ export interface IHabit {
 }
 
 export async function createHabit(habitName: string) {
-  console.log(habitName)
   await kv.hset("habits", { [habitName]: {}});
 }
 
